@@ -65,7 +65,16 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    random_key = choice(list(chains.keys()))
+    words.append(random_key[0])
+    words.append(random_key[1])
+
+    while True:
+        initial_key = (words[-2], words[-1])
+        if initial_key in chains.keys():
+            words.append(choice(chains[initial_key]))
+        else:
+            break
 
     return ' '.join(words)
 
