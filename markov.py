@@ -19,7 +19,7 @@ def open_and_read_file(file_path):
     return file_string
 
 
-def make_chains(text_string):
+def make_chains(text_string, n):
     """Take input text as string; return dictionary of Markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -47,15 +47,17 @@ def make_chains(text_string):
 
     chains = {}
     text_string_list = text_string.split()
-    i = 0
-    for i in range(len(text_string_list)-2):
-        word1 = text_string_list[i]
-        word2 = text_string_list[i+1]
-        word3 = text_string_list[i+2]
-        if (word1, word2) in chains:
-            chains[(word1, word2)].append(word3)
+
+    for i in range(len(text_string_list)-n):
+        ref_tuple = ()
+        for num in range(n):
+            ref_tuple += (text_string_list[i+num],)
+        word = text_string_list[i+n]
+        
+        if ref_tuple in chains:
+            chains[ref_tuple].append(word)
         else:
-            chains[(word1, word2)] = [word3]
+            chains[ref_tuple] = [word]
     
     return chains
 
@@ -65,16 +67,16 @@ def make_text(chains):
 
     words = []
 
-    random_key = choice(list(chains.keys()))
-    words.append(random_key[0])
-    words.append(random_key[1])
+    # random_key = choice(list(chains.keys()))
+    # words.append(random_key[0])
+    # words.append(random_key[1])
 
-    while True:
-        initial_key = (words[-2], words[-1])
-        if initial_key in chains.keys():
-            words.append(choice(chains[initial_key]))
-        else:
-            break
+    # while True:
+    #     initial_key = (words[-2], words[-1])
+    #     if initial_key in chains.keys():
+    #         words.append(choice(chains[initial_key]))
+    #     else:
+    #         break
 
     return ' '.join(words)
 
@@ -85,7 +87,7 @@ input_path = 'green-eggs.txt'
 input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-chains = make_chains(input_text)
+chains = make_chains(input_text, 3)
 
 # Produce random text
 random_text = make_text(chains)
