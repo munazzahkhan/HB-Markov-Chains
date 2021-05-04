@@ -62,21 +62,24 @@ def make_chains(text_string, n):
     return chains
 
 
-def make_text(chains):
+def make_text(chains, n):
     """Return text from chains."""
 
     words = []
 
-    # random_key = choice(list(chains.keys()))
-    # words.append(random_key[0])
-    # words.append(random_key[1])
+    random_key = choice(list(chains.keys()))
+    for i in range(n):
+        words.append(random_key[i])
+    
+    while True:
+        initial_key = ()
+        for num in range(-n, 0):
+            initial_key += (words[num],)
 
-    # while True:
-    #     initial_key = (words[-2], words[-1])
-    #     if initial_key in chains.keys():
-    #         words.append(choice(chains[initial_key]))
-    #     else:
-    #         break
+        if initial_key in chains.keys():
+            words.append(choice(chains[initial_key]))
+        else:
+            break
 
     return ' '.join(words)
 
@@ -90,6 +93,6 @@ input_text = open_and_read_file(input_path)
 chains = make_chains(input_text, 3)
 
 # Produce random text
-random_text = make_text(chains)
+random_text = make_text(chains, 3)
 
 print(random_text)
