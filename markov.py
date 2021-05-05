@@ -84,7 +84,7 @@ def make_text(chains, n):
     return ' '.join(words)
 
 
-input_path = 'green-eggs.txt'
+input_path = input("Please enter the file path > ")
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
