@@ -67,7 +67,11 @@ def make_text(chains, n):
 
     words = []
 
-    random_key = choice(list(chains.keys()))
+    while True:
+        random_key = choice(list(chains.keys()))
+        if random_key[0][0].isupper() and random_key[0][0].isalpha():
+            break
+
     for i in range(n):
         words.append(random_key[i])
     
