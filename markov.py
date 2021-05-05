@@ -58,8 +58,6 @@ def make_chains(text_string, n):
             chains[ref_tuple].append(word)
         else:
             chains[ref_tuple] = [word]
-    
-    print(chains)
 
     return chains
 
@@ -70,7 +68,6 @@ def make_text(chains, n):
     words = []
 
     while True:
-        print("in 1st while")
         random_key = choice(list(chains.keys()))
         if random_key[0][0].isupper() and random_key[0][0].isalpha():
             break
@@ -79,7 +76,7 @@ def make_text(chains, n):
     for i in range(n):
         words.append(random_key[i])
     
-    print(random_key)
+    # print(random_key)
     
     while True:
         initial_key = ()
@@ -100,9 +97,9 @@ input_path = input("Please enter the file path > ")
 input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-chains = make_chains(input_text, 10)
+chains = make_chains(input_text, 3)
 
 # Produce random text
-random_text = make_text(chains, 10)
+random_text = make_text(chains, 3)
 
 print(random_text)
